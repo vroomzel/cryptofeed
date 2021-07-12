@@ -1,11 +1,113 @@
 ## Changelog
 
-### 1.8.0
+### 1.9.2
+  * Bugfix: add config kwarg to add_nbbo method
+  * Update: changed KuCoin authentication to match new signing method
+  * Bugfix: #518 - fix aggregator example code
+  * Update: Support Bittrex V3
+  * Feature: Add support for candles on Bittrex
+  * Feature: Add support to authenticate private channels (e.g. USER_FILLS) on FTX
+  * Feature: Support private rest api commands for FTX
+  * Update: Improve impl for FTX rest api
+  * Bugfix: #528 - Fix standardisation of Deribit's symbols when passed to callbacks
+  * Feature: Add support for private "orders" channel on FTX
+  * Feature: Add support for subaccounts in feeds and REST API for FTX
+  * Bugfix: Fix FTX rest api return value
+  * Exchange: New exchange - dYdX
+  * Bugfix: Issue #531 - Gemini symbol generation included closed symbols
+  * Feature: Allow user to override the score used in Redis ZSETs
+  * Update: Get information about size increment from FTX symbol data
+  * Bugfix: Fix trades write for Arctic backend
+  * Feature: new exchange: Bequant. Supports ticker, L2 book, trades, candles, plus authenticated channels: order info, account transactions and account balances
+  * Update: BitMax renamed AscendEX
+  * Bugfix: Feed level timeout and timeout interval not being set properly
+  * Exchange: Phemex exchange support
+  * Features: added support for candles, order info, account transactions and account balances to HitBTC & Bitcoin.com, plus authentication where required to access these channels
+  * Update: previous HitBTC & Bitcoin.com websocket endpoints deprecated. Now using separate Market, Trading and Account endpoints
+  
+### 1.9.1 (2021-06-10)
+  * Feature: add Bithumb exchange - l2 book and trades
+  * Bugfix: Fix inverted Poloniex symbols
+  * Feature: simplify and cleanup parts of Poloniex
+  * Feature: add `symbols` class method to all exchanges to get list of supported trading pairs
+  * Feature: Clean up internal class attributes in Feed class
+  * Feature: Add graceful stop and shutdown methods for Feeds
+  * Feature: Add ledger endpoint to Kraken Rest module, add ability to optionally filter by symbol, or all symbols, for historical trades
+  * Docs: Update documentation regarding adding a new exchange to cryptofeed
+  * Bugfix: Reset delay after connection is successful
+  * Feature: yapic.json parses strings to datetimes automatically, no longer need to rely on Pandas for datetime parsing
+  * Bugfix: #491 - dictionary resized during iteration in ByBit
+  * Bugfix: #494 - added status argument to liquidations callback
+  * Bugfix: #399 - book delta issue with Kucoin and Gateio
+  * Feature: Binance Delivery candle support
+  * Feature: Binance US candle support
+  * Feature: Kraken Candle support
+  * Update: Remove deprecated channel mapping from Kraken, use channel name from message instead
+  * Bugfix: change Kraken Futures to use the standard symbol to be consistent with the rest of the library
+  * Update: use Kucoin v3 endpoint for orderbook snapshot (v2 deprecated).
+  * Update: Poloniex ticker message format update 
+
+### 1.9.0 (2021-04-25)
+  * Bugfix: Fix Binance subscriptions when subscribing to more than one candle
+  * Feature: Remove support for Influx versions prior to 2.0
+  * Feature: Add stop method to HTTP Backends to gracefully drain queue and write pending data on shutdown
+  * Feature: Revamp InfluxDB code. Drop support for storing floating point as str, store book data as json blob
+  * Bugfix: Remove unused get_instrument calls in Deribit and Kraken Futures
+  * Feature: Revamp symbol generation and exchange info for Deribit and Kraken Futures
+  * Bugfix: Fix issue using AsyncFile callback to store raw data
+  * Testing: Add exchange tests for Deribit and Binance
+  * Bugfix: Fix symbol issue in Bitmex when initializing the orderbook
+  * Bugfix: Fix various issues with FTX, OKCOIN/OKEX and Huobi symbol generation
+  * Testing: Overhaul exchange tests, all exchanges are now tested with real data. Fixed various bugs as a result of this testing. Revamped AsyncFileCallback.
+             Added new tool to generate test data for testing.
+  * Bugfix: Improve connection cleanup in AsyncConnection object
+  * Feature: Add support for user defined exception handling in FeedHandler
+  * Bugfix: Fix redis backends that can't handle None
+  * Bugfix: Connection exceptions being ignored in Feedhandler
+  * Bugfix: Binance address generation correction
+  * Bugfix: OKEX symbol generation incorrect + validate symbols used for channels that dont support all types
+  * Breaking Change: Large rewrite of Feedhandler, Connection, and Feed. Many timeout related options moved from feedhandler to Feed. Symbol specific code
+                     moved to exchange class. Rewrite of raw data collection.
+  * Feature: Candle support for Huobi
+  * Feature: Allow user to specify Postgres port in Postgres backends
+  * Bugfix: Report base volume, not quote volume in Huobi candles
+  * Feature: Support for the KuCoin exchange
+
+### 1.8.2 (2020-04-02)
+  * Update to use alpha release of aioredis 2.0. Allows building of wheels again
+
+### 1.8.1 (2020-04-01)
+  * Bugfix: Add manifest file for source dist
+
+### 1.8.0 (2020-04-01)
   * Bugfix: Init uvloop earlier so backends that use loop will not fail
   * Docs: Remove FAQ, added performance doc section
   * Bugfix: #404 - Use AsyncConnection object for Binance OI
   * Feature: Rework how raw data is stored (when enabled). REST data can now be captured
-  * Feature: New feedhandler method, `add_feed_running` allows user to add feed to running instance of a feedhandler.
+  * Feature: New feedhandler method, `add_feed_running` allows user to add feed to running instance of a feedhandler
+  * Feature: create_db defaults to False on InfluxDB backends
+  * Feature: Normalize Bitmex Symbols
+  * Update: Remove extraneous methods in feed objects used to query symbol information
+  * Feature: Use realtime ticker for Binance
+  * Bugfix: Bitmex symbols not being normalized correctly
+  * Bugfix: Fix GCP PubSub backend
+  * Bugfix: Fix historical data REST api for Bitmex
+  * Feature: Use separate tasks (fed by async queue) for backend writing. Redis now uses this method
+  * Bugfix: Allow user specified max depths on Kraken
+  * Feature: Add backend queue support to ZMQ backend
+  * Feature: Add backend queue support to Socket backends
+  * Feature: Add VictoriaMetrics support via backend
+  * Feature: Add backend queue support to influx and elastic
+  * Feature: Candle support
+  * Bugfix: Ignore untradeable symbols in Binance symbol generation
+  * Feature: Add backend support for queues in Postgres. Rework postgres backend and supply example SQL file to create tables for demo
+  * Bugfix: Fix ByBit symbol generation
+  * Feature: Authenticated channel support for OKEX/OKCOIN
+  * Update: Poloniex changed signaure of ticker data
+  * Feature: Candles for Binance Futures
+  * Feature: Premium Index Candle support for Binance Futures
+  * Feature: Update Gateio to use new v4 websocket api. Adds support for candles 
+
 
 ### 1.7.0 (2021-02-15)
   * Feature: Use UVLoop if installed (not available on windows)
@@ -78,7 +180,7 @@
 ### 1.6.1 (2020-11-12)
   * Feature: New kwarg for exchange feed - `snapshot_interval` - used to control number of snapshot updates sent to client
   * Feature: Support for rabbitmq message routing
-  * Feature: Support for raw file playback. Will be useful for testing features and building out new test suites for cryptofeed. 
+  * Feature: Support for raw file playback. Will be useful for testing features and building out new test suites for cryptofeed.
   * Feature: Arctic library quota can be configured, new default is unlimited
   * Feature: New exchange: Probit
   * Bugfix: Correctly store receipt timestamp in mongo backend
@@ -86,7 +188,7 @@
   * Bugfix: Open Interest data on FTX erroneously had timestamps set to None
   * Update: Binance Jersey shutdown - feed removed
   * Bugfix: Fixed open interest channel for Binance Delivery
-  
+
 ### 1.6.0 (2020-09-28)
   * Feature: Validate FTX book checksums (optionally enabled)
   * Bugfix: Subscribing only to open interest on Binance futures gave connection errors
@@ -303,7 +405,7 @@
 
 ### 0.17.3 (2018-11-17)
   * Feature #41: Rework trading pairs to generate them dynamically (as opposed to hard coded)
-  * Feature: When book depth configured Redis, ZMQ and UDP backends only report book changes when changed occurred in 
+  * Feature: When book depth configured Redis, ZMQ and UDP backends only report book changes when changed occurred in
              depth window
   * Feature: TCP socket backend support
   * Feature: UDS backend support
@@ -341,7 +443,7 @@
   * Added some docstrings
   * Feature: Add exchanges by name to feedhandler. Easier to instantiate a feedhandler from config
   * Logging improvements
-  * Bugfix: non-gathered futures were suppressing exceptions when multiple feeds are configured. Changed to tasks 
+  * Bugfix: non-gathered futures were suppressing exceptions when multiple feeds are configured. Changed to tasks
   * Redis backend uses a connection pool
 
 ### 0.14.0 (2018-09-04)

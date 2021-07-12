@@ -9,10 +9,12 @@ Handles multiple cryptocurrency exchange data feeds and returns normalized and s
 
 ## Supported exchanges
 
+* [AscendEX](https://ascendex.com/)
+* [Bequant](https://bequant.io/)
 * [Bitcoin.com](https://www.bitcoin.com/)
 * [Bitfinex](https://bitfinex.com)
 * [bitFlyer](https://bitflyer.com/)
-* [BitMax](https://bitmax.io/)
+* [Bithumb](https://en.bithumb.com/)
 * [Bitstamp](https://www.bitstamp.net/)
 * [Bittrex](https://global.bittrex.com/)
 * [Blockchain.com](https://www.blockchain.com/)
@@ -24,6 +26,7 @@ Handles multiple cryptocurrency exchange data feeds and returns normalized and s
 * [BitMEX](https://www.bitmex.com/)
 * [Coinbase](https://www.coinbase.com/)
 * [Deribit](https://www.deribit.com/)
+* [dYdX](https://dydx.exchange/)
 * [EXX](https://www.exx.com/)
 * [FTX](https://ftx.com/)
 * [FTX US](https://ftx.us/)
@@ -35,8 +38,10 @@ Handles multiple cryptocurrency exchange data feeds and returns normalized and s
 * Huobi Swap
 * [Kraken](https://www.kraken.com/)
 * [Kraken Futures](https://futures.kraken.com/)
+* [KuCoin](https://www.kucoin.com/)
 * [OKCoin](http://okcoin.com/)
 * [OKEx](https://www.okex.com/)
+* [Phemex](https://phemex.com/)
 * [Poloniex](https://www.poloniex.com/)
 * [ProBit](https://www.probit.com/)
 * [Upbit](https://sg.upbit.com/home)
@@ -44,7 +49,6 @@ Handles multiple cryptocurrency exchange data feeds and returns normalized and s
 ## Supported aggregated crypto data providers
 
 * [Coingecko](https://www.coingecko.com/en)
-* [Whale Alert](https://whale-alert.io/)
 
 
 ## Basic Usage
@@ -107,20 +111,23 @@ Cryptofeed supports the following channels from exchanges:
 * L3_BOOK - Price aggregated orders. Like the L2 book, some exchanges may only provide partial depth.
 * TRADES - Note this reports the taker's side, even for exchanges that report the maker side.
 * TICKER
-* VOLUME
 * FUNDING
 * BOOK_DELTA - Subscribed to with L2 or L3 books, receive book deltas rather than the entire book on updates. Full updates will be periodically sent on the L2 or L3 channel. If BOOK_DELTA is enabled, only L2 or L3 book can be enabled, not both. To receive both create two `feedhandler` objects. Not all exchanges are supported, as some exchanges send complete books on every update.
 * OPEN_INTEREST - Open interest data.
+* LIQUIDATIONS
+* FUTURES_INDEX
+* CANDLES - Candlestick / K-Line data.
 
 Aggregated data from provider is available in channel:
 
-* TRANSACTIONS - On-chain transactions.
 * MARKET_INFO - current aggregated price, market cap, volume (in USD, BTC or ETH currency), total and circulating supply,
  as well as community data (twitter, reddit, facebook...) and scores (coingecko, developer, community...)
 
 ### Authenticated Data Channels
 
 * ORDER_INFO - Order status updates
+* ACC_TRANSACTIONS - Real-time updates on account deposits and withdrawals
+* ACC_BALANCES - Updates on wallet funds
 
 
 ## Backends
@@ -134,13 +141,14 @@ Supported Backends:
 * UDP Sockets
 * TCP Sockets
 * Unix Domain Sockets
-* [InfluxDB](https://github.com/influxdata/influxdb) (v1 and v2)
+* [InfluxDB v2](https://github.com/influxdata/influxdb)
 * MongoDB
 * Kafka
 * Elastic Search
 * RabbitMQ
 * PostgreSQL
 * GCP Pub/Sub
+* [VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics)
 
 
 ## Installation
@@ -154,11 +162,11 @@ Cryptofeed can be installed from PyPi. (It's recommended that you install in a v
 Cryptofeed has optional dependencies, depending on the backends used. You can install them individually, or all at once. To install Cryptofeed along with all its optional dependencies in one bundle:
 
     pip install cryptofeed[all]
-    
+
 If you wish to clone the repository and install from source, run this command from the root of the cloned repository
 
     python setup.py install
-    
+
 Alternatively, you can install in 'edit' mode (also called development mode):
 
     python setup.py develop

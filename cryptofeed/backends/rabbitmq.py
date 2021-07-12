@@ -9,9 +9,9 @@ import asyncio
 import aio_pika
 from yapic import json
 
-from cryptofeed.backends.backend import (BackendBookCallback, BackendBookDeltaCallback, BackendFundingCallback,
+from cryptofeed.backends.backend import (BackendBookCallback, BackendBookDeltaCallback, BackendCandlesCallback, BackendFundingCallback,
                                          BackendOpenInterestCallback, BackendTickerCallback, BackendTradeCallback,
-                                         BackendLiquidationsCallback, BackendMarketInfoCallback, BackendTransactionsCallback)
+                                         BackendLiquidationsCallback, BackendMarketInfoCallback)
 
 
 class RabbitCallback:
@@ -105,5 +105,5 @@ class MarketInfoRabbit(RabbitCallback, BackendMarketInfoCallback):
     pass
 
 
-class TransactionsRabbit(RabbitCallback, BackendTransactionsCallback):
+class CandlesRabbit(RabbitCallback, BackendCandlesCallback):
     pass
